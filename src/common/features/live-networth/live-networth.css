@@ -1,37 +1,44 @@
-#liveNetworth .comparison {
-	margin: 5px;
+#ttHomeCardLiveNetworth .tt-live-networth-title-value {
+	margin-left: 6px;
+	font-size: 13px;
+	font-weight: 700;
+	color: #d7f7a0;
+	white-space: nowrap;
 }
 
-#liveNetworth table {
+#ttHomeCardLiveNetworth .tt-live-networth-title-value .networth-info-icon {
+	margin-left: 6px;
+}
+
+#ttHomeCardLiveNetworth .comparison {
+	padding: 0 !important;
+}
+
+#ttHomeCardLiveNetworth table {
 	width: 100%;
 }
 
-#liveNetworth table tr > * {
-	padding-bottom: 4px;
+#ttHomeCardLiveNetworth table tr > * {
+	text-align: center;
+	padding: 2px 0;
 	color: var(--default-font-color);
 }
 
-#liveNetworth table th {
+#ttHomeCardLiveNetworth table th {
 	font-weight: bold;
-	text-align: center;
 }
 
-#liveNetworth table .positive {
+#ttHomeCardLiveNetworth table .positive {
 	color: var(--tt-color-green);
 }
 
-#liveNetworth table .negative {
+#ttHomeCardLiveNetworth table .negative {
 	color: var(--tt-color-red);
 }
 
-.networth-row {
-	background-color: #65c90069;
-}
-
-.networth-row .divider span {
-	background-color: transparent !important;
-}
-
-.networth-row .desc span {
-	padding-left: 3px !important;
+#ttHomeCardLiveNetworth .tt-networth-footer {
+	font-size: 10px;
+	line-height: 14px;
+	padding: 4px 8px 6px;
+	text-align: center;
 }

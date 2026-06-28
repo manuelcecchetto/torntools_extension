@@ -908,7 +908,7 @@ export async function updateUserdata(forceUpdate = false) {
 
 			if (new Date() >= cutoff) {
 				for (const { name, contracts } of newUserdata.missions.givers) {
-					const activeContracts = contracts.filter((contract) => contract.completed_at === null);
+					const activeContracts = contracts.filter((contract) => ["Accepted", "Available"].includes(contract.status));
 					const maxMissions = name in MAX_MISSIONS ? MAX_MISSIONS[name] : MAX_MISSIONS.DEFAULT;
 
 					if (activeContracts.length >= maxMissions) {
@@ -1553,7 +1553,7 @@ export async function updateStocks() {
 	}
 }
 
-export type FetchedFactiondataBasic = FactionBasicResponse & FactionRankedWarResponse;
+export type FetchedFactiondataBasic = FactionBasicResponse & FactionOngoingChainResponse & FactionRankedWarResponse & FactionWarsResponse;
 export type FetchedFactiondataWithAccess = FetchedFactiondataBasic & FactionV1CrimesResponse;
 
 export async function updateFactiondata() {
@@ -1579,7 +1579,7 @@ export async function updateFactiondata() {
 			// TODO - Migrate to V2 (faction/crimes).
 			const data = await fetchData<FetchedFactiondataWithAccess>("tornv2", {
 				section: "faction",
-				selections: ["basic", "rankedwars"],
+				selections: ["basic", "chain", "rankedwars", "wars"],
 				legacySelections: ["crimes"],
 				silent: true,
 			});
@@ -1605,7 +1605,7 @@ export async function updateFactiondata() {
 		try {
 			const data = await fetchData<FetchedFactiondataBasic>("tornv2", {
 				section: "faction",
-				selections: ["basic", "rankedwars"],
+				selections: ["basic", "chain", "rankedwars", "wars"],
 				silent: true,
 			});
 

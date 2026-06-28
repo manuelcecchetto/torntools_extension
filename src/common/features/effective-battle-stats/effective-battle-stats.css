@@ -1,19 +1,15 @@
-#effectiveBattleStats .title {
-	cursor: initial !important;
-}
-
-.stats-row .divider span {
+#ttHomeCardEffectiveBattleStats .stats-row .divider span {
 	background-color: transparent !important;
 }
 
-body:not(.tt-mobile) .stats-row .desc {
+body:not(.tt-mobile) #ttHomeCardEffectiveBattleStats .stats-row .desc {
 	width: 184px !important;
 }
 
-body.tt-mobile .stats-row .desc {
+body.tt-mobile #ttHomeCardEffectiveBattleStats .stats-row .desc {
 	width: 180px !important;
 }
 
-.stats-row .desc span {
+#ttHomeCardEffectiveBattleStats .stats-row .desc span {
 	padding-left: 3px !important;
 }

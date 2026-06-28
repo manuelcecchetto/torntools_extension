@@ -1,46 +1,30 @@
 import "./live-networth.css";
 import { settings, userdata } from "@common/utils/data/database";
 import { hasAPIData } from "@common/utils/functions/api";
-import { createContainer, removeContainer } from "@common/utils/functions/containers";
-import { elementBuilder, findElementWithText } from "@common/utils/functions/dom";
+import { elementBuilder } from "@common/utils/functions/dom";
 import { formatNumber, formatTime } from "@common/utils/functions/formatting";
 import { requireContent } from "@common/utils/functions/requires";
 import { getPageStatus, isAbroad, isFlying } from "@common/utils/functions/torn";
 import { Feature } from "@features/feature";
+import { createHomeCard, removeHomeCard } from "@features/home-cards/home-cards";
+
+const CARD_ID = "ttHomeCardLiveNetworth";
+
+let infoIconInterval: number | undefined;
 
 async function showNetworth() {
 	await requireContent();
 
-	const { content } = createContainer("Live Networth", {
-		collapsible: false,
-		showHeader: false,
-		applyRounding: false,
-		compact: true,
-		parentElement: findElementWithText("h5", "General Information").parentElement.nextElementSibling.querySelector("ul.info-cont-wrap"),
+	const { card, content } = await createHomeCard({
+		id: CARD_ID,
+		title: "Live Networth",
+		defaultColumnId: "column1",
+		defaultAfterTitle: "General Information",
+		contentClass: "tt-live-networth-card",
 	});
-	const networthRow = newRow("(Live) Networth", formatNumber(userdata.networth.total, { currency: true }));
-
-	// Networth last updated info icon
-	const infoIcon = elementBuilder({
-		type: "i",
-		class: "networth-info-icon",
-		attributes: {
-			seconds: (Date.now() - userdata.date) / 1000,
-			title: `Last updated ${formatTime({ seconds: userdata.networth.timestamp }, { type: "ago" })}`,
-			style: "margin-left: 9px;",
-		},
-	});
-	networthRow.querySelector(".desc").appendChild(infoIcon);
-	content.appendChild(networthRow);
-
-	// Update 'last updated'
-	setInterval(() => {
-		const seconds = parseInt(infoIcon.getAttribute("seconds")) + 1;
-
-		if (!infoIcon.hasAttribute("aria-describedby"))
-			infoIcon.setAttribute("title", `Last updated: ${formatTime({ milliseconds: Date.now() - seconds * 1000 }, { type: "ago" })}`);
-		infoIcon.setAttribute("seconds", seconds.toString());
-	}, 1000);
+	updateHeaderNetworth(card);
+	const list = document.createElement("ul");
+	list.className = "info-cont-wrap";
 
 	const table = elementBuilder({
 		type: "table",
@@ -57,7 +41,7 @@ async function showNetworth() {
 		addToTable(type);
 	}
 
-	content.appendChild(
+	list.appendChild(
 		elementBuilder({
 			type: "li",
 			class: "comparison",
@@ -71,17 +55,7 @@ async function showNetworth() {
 			],
 		}),
 	);
-
-	function newRow(name: string, value: string) {
-		return elementBuilder({
-			type: "li",
-			class: "networth-row",
-			children: [
-				elementBuilder({ type: "div", class: "divider", children: [elementBuilder({ type: "span", text: name })] }),
-				elementBuilder({ type: "div", class: "desc", children: [elementBuilder({ type: "span", text: value })] }),
-			],
-		});
-	}
+	content.appendChild(list);
 
 	function getNetworthTypes() {
 		return [
@@ -149,6 +123,42 @@ async function showNetworth() {
 	}
 }
 
+function updateHeaderNetworth(card: HTMLElement) {
+	card.querySelector(".tt-live-networth-title-value")?.remove();
+	const infoIcon = elementBuilder({
+		type: "i",
+		class: "networth-info-icon",
+		attributes: {
+			seconds: (Date.now() - userdata.date) / 1000,
+			title: `Last updated ${formatTime({ seconds: userdata.networth.timestamp }, { type: "ago" })}`,
+		},
+	});
+	card.querySelector(".tt-home-card-title-text")?.insertAdjacentElement(
+		"afterend",
+		elementBuilder({
+			type: "span",
+			class: "tt-live-networth-title-value",
+			children: [formatNumber(userdata.networth.total, { currency: true }), infoIcon],
+		}),
+	);
+
+	if (infoIconInterval) window.clearInterval(infoIconInterval);
+	infoIconInterval = window.setInterval(() => {
+		const seconds = parseInt(infoIcon.getAttribute("seconds")) + 1;
+
+		if (!infoIcon.hasAttribute("aria-describedby"))
+			infoIcon.setAttribute("title", `Last updated: ${formatTime({ milliseconds: Date.now() - seconds * 1000 }, { type: "ago" })}`);
+		infoIcon.setAttribute("seconds", seconds.toString());
+	}, 1000);
+}
+
+function cleanupNetworthTimers() {
+	if (!infoIconInterval) return;
+
+	window.clearInterval(infoIconInterval);
+	infoIconInterval = undefined;
+}
+
 export default class LiveNetworthFeature extends Feature {
 	constructor() {
 		super("Live Networth", "home");
@@ -173,7 +183,8 @@ export default class LiveNetworthFeature extends Feature {
 	}
 
 	cleanup() {
-		removeContainer("Live Networth");
+		cleanupNetworthTimers();
+		removeHomeCard(CARD_ID);
 	}
 
 	storageKeys() {

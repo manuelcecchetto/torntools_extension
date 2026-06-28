@@ -1,0 +1,63 @@
+.tt-home-card {
+	color: var(--default-font-color);
+}
+
+.tt-home-card .tt-home-card-link {
+	color: inherit;
+	text-decoration: underline;
+	text-underline-offset: 2px;
+}
+
+.tt-home-card .tt-home-card-link:hover {
+	color: var(--tt-theme-background);
+}
+
+.tt-home-card .tt-home-card-row-positive .desc span,
+.tt-home-card .tt-home-card-row-positive .tt-home-card-value {
+	color: var(--tt-color-green);
+}
+
+.tt-home-card .tt-home-card-row-negative .desc span,
+.tt-home-card .tt-home-card-row-negative .tt-home-card-value {
+	color: var(--tt-color-red);
+}
+
+.tt-home-card .tt-home-card-row-warning .desc span,
+.tt-home-card .tt-home-card-row-warning .tt-home-card-value {
+	color: #f2a93b;
+}
+
+.tt-home-card .tt-home-card-row-muted .desc span,
+.tt-home-card .tt-home-card-row-muted .tt-home-card-value {
+	color: var(--default-gray-9-color);
+}
+
+.tt-home-card .tt-home-card-checklist .desc span {
+	font-weight: 700;
+}
+
+.tt-home-card .tt-home-card-checklist .tt-home-card-row-done .desc span {
+	color: var(--tt-color-green);
+}
+
+.tt-home-card .tt-home-card-checklist .tt-home-card-row-pending .desc span {
+	color: #f2a93b;
+}
+
+.tt-home-card .tt-home-card-mini-table {
+	width: 100%;
+	border-collapse: collapse;
+	font-size: 12px;
+}
+
+.tt-home-card .tt-home-card-mini-table th,
+.tt-home-card .tt-home-card-mini-table td {
+	padding: 2px 4px;
+	color: var(--default-font-color);
+	text-align: left;
+}
+
+.tt-home-card .tt-home-card-mini-table th:last-child,
+.tt-home-card .tt-home-card-mini-table td:last-child {
+	text-align: right;
+}

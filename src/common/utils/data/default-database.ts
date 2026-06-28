@@ -14,6 +14,14 @@ import type { TornItem, UserLastActionStatusEnum, UserStatusStateEnum } from "to
 
 type SettingType = "string" | "boolean" | "number" | "number|empty" | "object" | "array";
 type InactivityDisplay = { days: number | null; color: string };
+type HomeBattleStatsSnapshot = {
+	timestamp: number;
+	total: number;
+	strength: number;
+	defense: number;
+	speed: number;
+	dexterity: number;
+};
 
 export class DefaultSetting<T = never> {
 	readonly type: SettingType;
@@ -271,6 +279,7 @@ export const DEFAULT_STORAGE = {
 			home: {
 				networthDetails: new DefaultSetting("boolean", true),
 				effectiveStats: new DefaultSetting("boolean", true),
+				additionalCards: new DefaultSetting("boolean", true),
 			},
 			items: {
 				quickItems: new DefaultSetting("boolean", true),
@@ -815,6 +824,10 @@ export const DEFAULT_STORAGE = {
 			},
 		},
 		chatResize: new DefaultSetting<StoredResizableChats>("object", {}),
+		homeCards: {
+			columns: new DefaultSetting<Record<string, string[]>>("object", {}),
+			battleStatsHistory: new DefaultSetting<HomeBattleStatsSnapshot[]>("array", []),
+		},
 		feedHidden: new DefaultSetting<StoredHiddenFeeds>("object", {}),
 		threadsHiddenInFeed: new DefaultSetting<number[]>("array", []),
 	},

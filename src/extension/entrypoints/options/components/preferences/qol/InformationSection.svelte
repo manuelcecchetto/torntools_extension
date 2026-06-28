@@ -9,6 +9,11 @@
 	<PreferenceSectionCard>
 		<PreferenceSettingGroup>
 			<StorageSwitch path="settings.pages.home.effectiveStats" label="Show effective battle stats on the homepage" />
+			<StorageSwitch
+				path="settings.pages.home.additionalCards"
+				label="Show extra TornTools homepage cards"
+				description="Adds Battle Stat Growth, cooldowns, checklist, faction status, travel profit, crime, market, target, and loadout cards."
+			/>
 			<StorageSwitch path="settings.pages.city.items" label="Highlight items on the city map">
 				<StorageSwitch path="settings.pages.city.combineDuplicates" label="Combine duplicate items" />
 			</StorageSwitch>

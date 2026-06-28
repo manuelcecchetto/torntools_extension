@@ -133,6 +133,7 @@ import HighlightEnergyRefillFeature from "@features/highlight-energy-refill/high
 import HighlightNerveRefillFeature from "@features/highlight-nerve-refill/highlight-nerve-refill";
 import HighlightOCFeature from "@features/highlight-oc/highlight-oc";
 import HighlightPropertiesFeature from "@features/highlight-properties/highlight-properties";
+import AdditionalHomeCardsFeature from "@features/home-cards/additional-home-cards";
 import HospitalFilterFeature from "@features/hospital-filter/hospital-filter";
 import ItemMarketLeftBarFeature from "@features/item-market-left-bar/item-market-left-bar";
 import ItemValuesFeature from "@features/item-values/item-values";
@@ -304,6 +305,7 @@ export function scriptManager() {
 	} else if (page === "home") {
 		FEATURE_MANAGER.registerFeature(new EffectiveBattleStatsFeature());
 		FEATURE_MANAGER.registerFeature(new LiveNetworthFeature());
+		FEATURE_MANAGER.registerFeature(new AdditionalHomeCardsFeature());
 	} else if (page === "travel") {
 		setupTravelAbroadPage().catch((err) => console.error(err));
 		setupTravelHomePage().catch((err) => console.error(err));

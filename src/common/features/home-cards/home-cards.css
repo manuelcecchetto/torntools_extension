@@ -1,0 +1,59 @@
+.tt-home-card {
+	color: var(--default-font-color);
+}
+
+.tt-home-card > .title.main-title {
+	color: var(--tt-theme-color) !important;
+	background: var(--tt-theme-background) !important;
+}
+
+.tt-home-card > .title.main-title .box-title {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+}
+
+.tt-home-card .tt-home-card-logo {
+	display: inline-flex;
+	width: 16px;
+	height: 16px;
+	align-items: center;
+	justify-content: center;
+	flex: 0 0 auto;
+}
+
+.tt-home-card .tt-home-card-logo .tt-svg {
+	width: 16px;
+	height: 16px;
+	display: block;
+	filter: drop-shadow(1px 1px 1px rgb(0 0 0 / 45%));
+}
+
+.tt-home-card .tt-home-card-logo .tt-svg .tt-svg-upper {
+	fill: #fff;
+	stroke: #fff;
+}
+
+.tt-home-card .tt-home-card-logo .tt-svg .tt-svg-lower {
+	fill: var(--tt-color-light-green);
+	stroke: var(--tt-color-light-green);
+}
+
+.tt-home-card .move-wrap {
+	cursor: move;
+}
+
+.tt-home-card .tt-home-card-body > .cont-gray > .info-cont-wrap {
+	margin: 0;
+}
+
+.tt-home-card .tt-home-card-body > .cont-gray > .info-cont-wrap > li .desc {
+	text-align: left !important;
+}
+
+.tt-home-card .tt-home-card-row-note {
+	font-size: 11px;
+	line-height: 15px;
+	padding: 6px 10px !important;
+	color: var(--default-gray-9-color);
+}
